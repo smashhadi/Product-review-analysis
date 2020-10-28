@@ -16,7 +16,7 @@ import stanfordnlp
 
 def product_review_analysis(txt, stop_words, nlp):
     
-    txt = txt.lower() # LowerCasing the given Text
+    txt = txt.lower() # Convert given text to lowercase
     sentList = nltk.sent_tokenize(txt) # Splitting the text into sentences
 
     fcluster = []
@@ -32,7 +32,7 @@ def product_review_analysis(txt, stop_words, nlp):
         newwordList = []
         flag = 0
         for i in range(0,len(taggedList)-1):
-            if(taggedList[i][1]=="NN" and taggedList[i+1][1]=="NN"): # If two consecutive words are Nouns then they are joined together
+            if(taggedList[i][1]=="NN" and taggedList[i+1][1]=="NN"): # If two consecutive words are Nouns, they are joined together
                 newwordList.append(taggedList[i][0]+taggedList[i+1][0])
                 flag=1
             else:
@@ -48,9 +48,9 @@ def product_review_analysis(txt, stop_words, nlp):
         wordsList = [w for w in new_txt_list if not w in stop_words]
         taggedList = nltk.pos_tag(wordsList)
 
-        doc = nlp(finaltxt) # Object of Stanford NLP Pipeleine
+        doc = nlp(finaltxt) 
         
-        # Getting the dependency relations betwwen the words
+        # Getting the dependency relations between words
         dep_node = []
         for dep_edge in doc.sentences[0].dependencies:
             dep_node.append([dep_edge[2].text, dep_edge[0].index, dep_edge[1]])
